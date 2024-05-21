@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Number Guessing Game</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    body {
+        margin: 20px;
+    }
+    .container {
+        max-width: 600px;
+    }
+    .history-table th,
+	.history-table td {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Number Guessing Game</h1>
+
+        <!-- 答え入力スペース -->
+        <form action="/challenge" method="post" th:action="@{challenge}" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="number" class="form-control" placeholder="Guess the number" autofocus>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Try!</button>
+                </div>
+            </div>
+            <p class="text-danger mt-2" th:errors="${gameForm.number}">
+                1~100の数値を入力してください。
+            </p>
+        </form>
+
+        <hr>
+
+        <!-- 回答履歴表示スペース -->
+        <table class="table history-table">
+            <thead>
+                <tr>
+                    <th scope="col">Count</th>
+                    <th scope="col">Your Answer</th>
+                    <th scope="col">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="history : ${histories}">
+                    <td th:text="${history.count}"></td>
+                    <td th:text="${history.yourAnswer}"></td>
+                    <td th:text="${history.result}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- リセットボタン -->
+        <a href="/" class="btn btn-secondary">Play Again</a>
+    </div>
+</body>
+</html>
